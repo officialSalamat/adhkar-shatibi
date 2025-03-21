@@ -1,0 +1,129 @@
+/* Réinitialisation de base pour assurer la cohérence entre les navigateurs */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+@font-face {
+    font-family: '29LT Riwaya';
+    src: url('assets/fonts/29LTRiwaya-Italic/web/29LTRiwaya-Italic.woff2') format('woff2'),
+         url('assets/fonts/29LTRiwaya-Italic/web/29LTRiwaya-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Style général du corps */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #000; /* Fond noir */
+    color: #fff; /* Texte blanc pour le contraste */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style du titre */
+h1 {
+    font-family: '29LT Riwaya', serif;
+    font-size: 3.1rem;
+    font-weight: 400;
+    margin-bottom: 1px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    color: #BABABA;
+}
+
+/* Style du lecteur audio */
+audio {
+    margin-top: 20px;
+    width: 100%; /* Largeur adaptative */
+    max-width: 400px; /* Limite la largeur */
+}
+
+/* Style des contrôles audio (optionnel, dépend du navigateur) */
+audio::-webkit-media-controls-panel {
+    border-radius: 8px;
+}
+
+.audio-container{
+    width: 95vw; 
+    max-width: 40rem; 
+    min-width: 20rem; 
+    height: auto; 
+    padding: 1rem;
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: fixed;
+    bottom: 0;
+}
+
+
+.audio-player{
+    width: 35rem;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+}
+
+.controls-bar{
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+}
+.chrono-bar{
+    width: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+#progress{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 7px;
+    background: #888888;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3.5rem 0 1rem 0;
+    overflow: hidden;
+    position: relative;
+}
+#progress::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 12px;
+    background: #fff; /* Bouton blanc */
+    border-radius: 80%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+#progress::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #fff var(--progress-value, 0%), #888888 var(--progress-value, 0%));
+}
+
+.loop-active {
+    filter: invert(30%) sepia(80%) saturate(400%) hue-rotate(-40deg) brightness(90%);
+}
+
+.time-container {
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    color: #BABABA;
+    margin-top: 5px;
+}

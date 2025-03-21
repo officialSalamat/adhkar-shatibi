@@ -3,30 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>أذكار</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-        audio {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
 
-    <h1>أذكار الصباح و المساء</h1>
-    <audio controls>
-        <source src="assets/adhkar.ogg" type="audio/ogg">
-        <source src="assets/adhkar.mp3" type="audio/mpeg">
-        Votre navigateur ne supporte pas l'élément audio.
-    </audio>
+    <div class="audio-container">
+
+        <div class="titles">
+            <h1>أذكار الصباح و المساء</h1>
+            <h3>Les invocations du matin et du soir</h3>
+        </div>
+
+        <div class="audio-player">
+            <audio id="song">
+                <source src="assets/adhkar.ogg" type="audio/ogg">
+                <source src="assets/adhkar.mp3" type="audio/mpeg">
+                Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+
+            <div class="controls-bar">
+                <img id="repeatBtn" src="assets/icons/repeat.svg" alt="Repeat Icon">
+
+                <div class="chrono-bar">
+                    <img id="rewind15" src="assets/icons/moins15.svg" alt="Rewind 15s">
+                    <img id="playPauseImg" src="assets/icons/play.svg" alt="Play Button">
+                    <img id="forward15" src="assets/icons/plus15.svg" alt="Forward 15s">
+                </div>
+                
+                <img src="assets/icons/speed_change.svg" alt="Speed Change">
+            </div>
+
+            <input type="range" value="0" id="progress">
+            <div class="time-container">
+                <span id="currentTime">0:00</span>
+                <span id="totalDuration">0:00</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        // AUDIO PLAYING
+
+        let song = document.getElementById("song");
+        let playPauseImg = document.getElementById("playPauseImg");
+        let progress = document.getElementById("progress");
+        let currentTimeDisplay = document.getElementById("currentTime");
+        let totalDurationDisplay = document.getElementById("totalDuration");
+
+        // Convertit le temps en format mm:ss
+        function formatTime(seconds) {
+            let min = Math.floor(seconds / 60);
+            let sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? "0" + sec : sec}`;
+        }
+
+        // Met à jour la durée totale et initialise la barre de progression
+        song.onloadedmetadata = function () {
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+            totalDurationDisplay.textContent = formatTime(song.duration);
+        };
+
+        // Play/Pause Button
+        playPauseImg.addEventListener("click", function () {
+            if (song.paused) {
+                song.play();
+                playPauseImg.src = "assets/icons/pause.svg";
+            } else {
+                song.pause();
+                playPauseImg.src = "assets/icons/play.svg";
+            }
+        });
+
+        // Mise à jour en temps réel de la barre de progression et du temps affiché
+        song.addEventListener("timeupdate", function () {
+            progress.value = song.currentTime;
+            let percentage = (song.currentTime / song.duration) * 100;
+            progress.style.setProperty("--progress-value", `${percentage}%`);
+            currentTimeDisplay.textContent = formatTime(song.currentTime);
+        });
+
+        // Permet de naviguer en changeant la position du slider
+        progress.onchange = function () {
+            song.currentTime = progress.value;
+            song.play();
+            playPauseImg.src = "assets/icons/pause.svg";
+        };
+
+        // Reset Play Button when audio ends
+        song.addEventListener("ended", function () {
+            playPauseImg.src = "assets/icons/play.svg";
+            song.currentTime = 0;
+            progress.value = 0;
+        });
+
+        // REPEAT BUTTON
+        let repeatBtn = document.getElementById("repeatBtn");
+        let isLooping = false;
+
+        repeatBtn.addEventListener("click", function () {
+            isLooping = !isLooping;
+            song.loop = isLooping;
+            repeatBtn.classList.toggle("loop-active", isLooping);
+        });
+
+        // CHRONO BUTTONS
+        let rewindBtn = document.getElementById("rewind15");
+        let forwardBtn = document.getElementById("forward15");
+
+        rewindBtn.addEventListener("click", function () {
+            song.currentTime = Math.max(0, song.currentTime - 15);
+        });
+
+        forwardBtn.addEventListener("click", function () {
+            song.currentTime = Math.min(song.duration, song.currentTime + 15);
+        });
+
+
+    </script>
 
 </body>
 </html>
