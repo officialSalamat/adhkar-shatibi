@@ -47,6 +47,19 @@ body {
     
 }
 
+#shatibi {
+    position: fixed; /* Pour qu'il reste en place comme l'image de fond */
+    top: 0;          /* Position en haut */
+    left: 50%;       /* Centré horizontalement */
+    transform: translateX(-50%); /* Centre parfaitement */
+
+    width: 50rem;    /* Ajuste à ta convenance */
+    height: auto;
+
+    z-index: 0;      /* Superposé à l’image de fond (#background), mais derrière le contenu */
+    pointer-events: none; /* Important : laisse les clics passer au travers */
+}
+
 /* Style du titre */
 h1 {
     font-family: '29LT Riwaya', serif;
