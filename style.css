@@ -31,14 +31,6 @@ body {
    
 }
 
-.page-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-
-
 #background{
     position: fixed; /* Fixe l'image en arrière-plan */
     top: 0;
@@ -46,7 +38,7 @@ body {
     transform: translateX(-50%); /* Centre l'image en largeur */
     
     width: auto;
-    height: 67vh; /* Même taille qu'avant */
+    height: 66vh; /* Même taille qu'avant */
     
     object-fit: contain; /* Évite la déformation */
     z-index: -2; /* Place l'image derrière tout */
@@ -102,10 +94,10 @@ audio::-webkit-media-controls-panel {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     gap: 5.9rem;
-    padding: 1rem 1rem calc(env(safe-area-inset-bottom, 0px) + 2rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
 }
 
 .titles {
