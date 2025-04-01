@@ -1,7 +1,5 @@
 /* Réinitialisation de base pour assurer la cohérence entre les navigateurs */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -11,8 +9,8 @@
 
 @font-face {
     font-family: '29LT Riwaya';
-    src: url('assets/fonts/29LTRiwaya-Italic/web/29LTRiwaya-Italic.woff2') format('woff2'),
-         url('assets/fonts/29LTRiwaya-Italic/web/29LTRiwaya-Italic.woff') format('woff');
+    src: url('assets/fonts/29LTRiwaya-Italic/29LTRiwaya-Italic.woff2') format('woff2'),
+         url('assets/fonts/29LTRiwaya-Italic/29LTRiwaya-Italic.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -26,71 +24,51 @@ body {
 
     display: flex;
     align-items: center;
-    justify-content: center;
-
-   
+    justify-content: center; 
 }
 
-#background{
-    position: fixed; /* Fixe l'image en arrière-plan */
+
+#background {
+    position: fixed;
     top: 0;
     left: 50%;
-    transform: translateX(-50%); /* Centre l'image en largeur */
-    
-    width: auto;
-    height: 65vh; /* Même taille qu'avant */
-    
-    object-fit: contain; /* Évite la déformation */
-    z-index: -2; /* Place l'image derrière tout */
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
-    
-}
+    transform: translateX(-50%);
 
-#shatibi {
-    position: fixed; /* Pour qu'il reste en place comme l'image de fond */
-    top: 0;          /* Position en haut */
-    left: 50%;       /* Centré horizontalement */
-    transform: translateX(-50%); /* Centre parfaitement */
+    width: auto;
+    height: 67.5vh;
 
     object-fit: contain;
+    z-index: -2;
 
-    z-index: -1;      /* Superposé à l’image de fond (#background), mais derrière le contenu */
-    pointer-events: none; /* Important : laisse les clics passer au travers */
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
 }
+
 
 /* Style du titre */
 h1 {
     font-family: '29LT Riwaya', serif;
     font-size: 3.1rem;
-    font-weight: 400;
+    font-weight: 800;
     margin-bottom: 1px;
+    margin-top: 1px;
 }
 
 h3 {
     font-size: 1.7rem;
+    margin-bottom: 3px;
+    margin-top: 3px;
     font-weight: lighter;
     color: #BABABA;
 }
 
-/* Style du lecteur audio */
-audio {
-    margin-top: 20px;
-    width: 100%; /* Largeur adaptative */
-    max-width: 400px; /* Limite la largeur */
-}
-
-/* Style des contrôles audio (optionnel, dépend du navigateur) */
-audio::-webkit-media-controls-panel {
-    border-radius: 8px;
-}
-
 .audio-container{
     width: 95vw; 
+    height: 34.5vh;
     max-width: 40rem; 
     min-width: 20rem; 
-    padding: 1rem 1rem 1rem 1rem;
-    height: auto;
+    padding: 0rem 1rem 1rem  1rem ;
+    margin: 0rem 1.5rem 2rem  1.5rem ;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,3 +153,14 @@ audio::-webkit-media-controls-panel {
     color: #BABABA;
     margin-top: 5px;
 }
+
+/* LOCK SCREEN */
+
+
+@media only screen and (orientation: landscape) { 
+    html { 
+      width: 35%;
+      margin: 0 auto;
+      overflow: scroll;
+    }
+  }
