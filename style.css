@@ -198,7 +198,6 @@ h3 {
     .audio-container{ 
       max-width: 45rem;
       width: min-content;
-      
       overflow-y: scroll;  
     }
     .audio-container::-webkit-scrollbar {
@@ -206,3 +205,5 @@ h3 {
         background: transparent;  
     }
   }
+
+
