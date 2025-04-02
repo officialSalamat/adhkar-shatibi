@@ -29,11 +29,14 @@
 
                 <div class="chrono-bar">
                     <img id="rewind15" src="assets/icons/moins15.svg" alt="Rewind 15s">
-                    <img id="playPauseImg" src="assets/icons/play.svg" alt="Play Button">
+                    <img id="playPauseImg" src="assets/icons/play.svg" alt="Play Button" tabindex="0" role="button" aria-label="Lire / Pause" >
                     <img id="forward15" src="assets/icons/plus15.svg" alt="Forward 15s">
                 </div>
                 
-                <img src="assets/icons/speed_change.svg" alt="Speed Change">
+                <div class="speed-control">
+                    <img id="speedBtn" src="assets/icons/speed_change.svg" alt="Speed Change">
+                    <span id="speedDisplay">x1</span>
+                </div>
             </div>
 
             <input type="range" value="0" id="progress">
@@ -65,11 +68,11 @@
         }
 
         // Met à jour la durée totale et initialise la barre de progression
-        song.onloadedmetadata = function () {
-            progress.max = song.duration;
-            progress.value = song.currentTime;
-            totalDurationDisplay.textContent = formatTime(song.duration);
-        };
+        const KNOWN_DURATION = (18 * 60) + 52;
+
+        progress.max = KNOWN_DURATION;
+        progress.value = 0;
+        totalDurationDisplay.textContent = formatTime(KNOWN_DURATION);
 
         // Play/Pause Button
         playPauseImg.addEventListener("click", function () {
@@ -91,11 +94,16 @@
         });
 
         // Permet de naviguer en changeant la position du slider
-        progress.onchange = function () {
+        // Met à jour en temps réel pendant le déplacement du slider
+        progress.addEventListener("input", function () {
             song.currentTime = progress.value;
+        });
+
+        // Lance la lecture quand on relâche
+        progress.addEventListener("change", function () {
             song.play();
             playPauseImg.src = "assets/icons/pause.svg";
-        };
+        });
 
         // Reset Play Button when audio ends
         song.addEventListener("ended", function () {
@@ -114,6 +122,29 @@
             repeatBtn.classList.toggle("loop-active", isLooping);
         });
 
+        // SPEED CHANGE BUTTON
+        let speedBtn = document.getElementById("speedBtn");
+        let speedDisplay = document.getElementById("speedDisplay");
+        let speedLevels = [1, 1.5, 2];
+        let currentSpeedIndex = 0;
+
+        speedBtn.addEventListener("click", function () {
+            currentSpeedIndex = (currentSpeedIndex + 1) % speedLevels.length;
+            let newSpeed = speedLevels[currentSpeedIndex];
+            song.playbackRate = newSpeed;
+
+            if (newSpeed === 1) {
+                // Cache la bulle + reset le filtre de l’icône
+                speedDisplay.style.display = "none";
+                speedBtn.style.filter = "none";
+            } else {
+                // Affiche la bulle + applique le filtre sur l’icône
+                speedDisplay.style.display = "inline-block";
+                speedDisplay.textContent = "x" + newSpeed;
+                speedBtn.style.filter = "invert(30%) sepia(80%) saturate(400%) hue-rotate(-40deg) brightness(90%)";
+            }
+        });
+
         // CHRONO BUTTONS
         let rewindBtn = document.getElementById("rewind15");
         let forwardBtn = document.getElementById("forward15");
@@ -125,6 +156,33 @@
         forwardBtn.addEventListener("click", function () {
             song.currentTime = Math.min(song.duration, song.currentTime + 15);
         });
+
+        // Buttons accessibles avec clavier
+        document.addEventListener("keydown", function (event) {
+            // Barre espace ou Entrée → toggle play/pause
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault(); // Empêche le scroll avec espace
+                if (song.paused) {
+                    song.play();
+                    playPauseImg.src = "assets/icons/pause.svg";
+                } else {
+                    song.pause();
+                    playPauseImg.src = "assets/icons/play.svg";
+                }
+            }
+
+            // Flèche gauche → recule de 15 sec
+            if (event.key === "ArrowLeft") {
+                song.currentTime = Math.max(0, song.currentTime - 15);
+            }
+
+            // Flèche droite → avance de 15 sec
+            if (event.key === "ArrowRight") {
+                let duration = !isNaN(song.duration) ? song.duration : KNOWN_DURATION;
+                song.currentTime = Math.min(duration, song.currentTime + 15);
+            }
+        });
+
 
 
     </script>
