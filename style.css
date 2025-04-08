@@ -49,7 +49,8 @@ body {
 /* Style du titre */
 h1 {
     font-family: '29LT Riwaya', serif;
-    font-size: max(7.5vw, 20px);
+    /*font-size: max(7.5vw, 20px);*/
+    font-size: 3.1rem;
     white-space: nowrap;
     font-weight: 800;
     margin-bottom: 1px;
@@ -57,7 +58,8 @@ h1 {
 }
 
 h3 {
-    font-size: max(4.4vw, 12px);
+   /* font-size: max(4.4vw, 12px);*/
+    font-size: 1.7rem;
     white-space: nowrap;
     margin-bottom: 3px;
     margin-top: 3px;
@@ -67,7 +69,7 @@ h3 {
 
 .audio-container{
     width: 95vw; 
-    height: 33vh;
+    height: 32.5vh;
     max-width: 40rem; 
     min-width: 25rem; 
 
@@ -111,7 +113,7 @@ h3 {
 }
 
 .audio-player{
-    width: 99%;
+    width: 97%;
     min-width: 30rem; 
     display: flex;
     flex-direction: column; 
@@ -137,7 +139,7 @@ h3 {
     background: #888888;
     border-radius: 5px;
     cursor: pointer;
-    margin: 3.5rem 0 1rem 0;
+    margin: 4rem 0 1rem 0;
     overflow: hidden;
     position: relative;
 }
