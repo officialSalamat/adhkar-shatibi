@@ -19,13 +19,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    height: 100vh;
     background-color: #3D0C10; /*  Fond */
     /* background: 
     linear-gradient(to bottom, transparent 0%, #3D0C10 60%),
     linear-gradient(to right, #7D613A, #63553C);*/
     color: #fff; /* Texte blanc pour le contraste */
-
     display: flex;
     align-items: center;
     justify-content: center; 
